@@ -2,6 +2,7 @@ package com.prosigliere.mapper;
 
 import com.prosigliere.domain.dto.request.CreateBlogPostRequest;
 import com.prosigliere.domain.dto.response.CreateBlogPostResponse;
+import com.prosigliere.domain.dto.response.GetBlogPostResponse;
 import com.prosigliere.domain.entity.BlogPostEntity;
 import org.junit.jupiter.api.Test;
 
@@ -31,5 +32,16 @@ public class BlogPostMapperTest {
         assertNull(mappedEntity.getId());
         assertEquals(mockedRequest.getTitle(), mappedEntity.getTitle());
         assertEquals(mockedRequest.getContent(), mockedRequest.getContent());
+    }
+
+    @Test
+    void mapFromEntityToGetBlogPostResponse() {
+        BlogPostEntity mockedEntity = defaultBlogPostEntity();
+
+        GetBlogPostResponse mappedResponse = BlogPostMapper.mapEntityToGetBlogPostResponse(mockedEntity);
+
+        assertEquals(mockedEntity.getId(), mappedResponse.getId());
+        assertEquals(mockedEntity.getTitle(), mappedResponse.getTitle());
+        assertEquals(mockedEntity.getContent(), mappedResponse.getContent());
     }
 }

@@ -3,6 +3,7 @@ package com.prosigliere.controller.impl;
 import com.prosigliere.controller.BlogPostController;
 import com.prosigliere.domain.dto.request.CreateBlogPostRequest;
 import com.prosigliere.domain.dto.response.CreateBlogPostResponse;
+import com.prosigliere.domain.dto.response.GetBlogPostResponse;
 import com.prosigliere.domain.model.Error;
 import com.prosigliere.service.BlogPostService;
 import jakarta.validation.Valid;
@@ -28,6 +29,13 @@ public class BlogPostControllerImpl implements BlogPostController {
     @ResponseStatus(HttpStatus.CREATED)
     public CreateBlogPostResponse createBlogPost(@RequestBody @Valid CreateBlogPostRequest request) {
         return service.createBlogPost(request);
+    }
+
+    @Override
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public GetBlogPostResponse getBlogPostById(@PathVariable Long id) {
+        return service.getBlogPostById(id);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
