@@ -7,6 +7,8 @@ import com.prosigliere.repository.BlogPostRepository;
 import com.prosigliere.service.BlogPostService;
 import com.prosigliere.util.BlogPostMother;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -30,6 +32,13 @@ public class BlogPostControllerTest {
     private BlogPostRepository repository;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @ParameterizedTest
+    @ValueSource(strings = {"/api/posts", "/api/posts/1"})
+    void shouldGetOk(String arg) throws Exception {
+        mockMvc.perform(get(arg))
+                .andExpect(status().isOk());
+    }
 
     @Test
     void shouldCreateBlogPost() throws Exception {
@@ -73,11 +82,5 @@ public class BlogPostControllerTest {
                         .content(requestPayload)
                         .contentType(APPLICATION_JSON_VALUE))
                 .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void shouldGetBlogPost() throws Exception {
-        mockMvc.perform(get("/api/posts/1"))
-                .andExpect(status().isOk());
     }
 }

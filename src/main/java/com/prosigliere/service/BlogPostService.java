@@ -2,6 +2,7 @@ package com.prosigliere.service;
 
 import com.prosigliere.domain.dto.request.CreateBlogPostRequest;
 import com.prosigliere.domain.dto.response.CreateBlogPostResponse;
+import com.prosigliere.domain.dto.response.GetAllBlogPostResponse;
 import com.prosigliere.domain.dto.response.GetBlogPostResponse;
 import com.prosigliere.domain.entity.BlogPostEntity;
 import com.prosigliere.exceptions.BlogPostNotFoundException;
@@ -10,6 +11,7 @@ import com.prosigliere.repository.BlogPostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.prosigliere.mapper.BlogPostMapper.*;
@@ -46,5 +48,11 @@ public class BlogPostService {
         BlogPostEntity entityToBeSaved = mapCreateBlogPostRequestToEntity(request);
 
         return repository.save(entityToBeSaved);
+    }
+
+    public GetAllBlogPostResponse listBlogPosts() {
+        List<BlogPostEntity> blogPostList = (List<BlogPostEntity>) repository.findAll();
+
+        return BlogPostMapper.mapEntityListToGetAllBlogPostResponse(blogPostList);
     }
 }

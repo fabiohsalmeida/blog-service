@@ -2,6 +2,7 @@ package com.prosigliere.controller;
 
 import com.prosigliere.domain.dto.request.CreateBlogPostRequest;
 import com.prosigliere.domain.dto.response.CreateBlogPostResponse;
+import com.prosigliere.domain.dto.response.GetAllBlogPostResponse;
 import com.prosigliere.domain.dto.response.GetBlogPostResponse;
 import com.prosigliere.domain.model.Error;
 import io.swagger.v3.oas.annotations.Operation;
@@ -48,4 +49,14 @@ public interface BlogPostController {
             @Parameter(description = "ID of blog post that should be returned")
             Long id
     );
+
+    @Operation(summary = "Get all existing blog posts")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get all blog posts", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(
+                            implementation = GetAllBlogPostResponse.class
+                    ))
+            })
+    })
+    GetAllBlogPostResponse listBlogPosts();
 }

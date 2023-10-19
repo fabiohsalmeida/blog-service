@@ -2,6 +2,7 @@ package com.prosigliere.service;
 
 import com.prosigliere.domain.dto.request.CreateBlogPostRequest;
 import com.prosigliere.domain.dto.response.CreateBlogPostResponse;
+import com.prosigliere.domain.dto.response.GetAllBlogPostResponse;
 import com.prosigliere.domain.dto.response.GetBlogPostResponse;
 import com.prosigliere.domain.entity.BlogPostEntity;
 import com.prosigliere.exceptions.BlogPostNotFoundException;
@@ -13,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -66,5 +68,16 @@ public class BlogPostServiceTest {
         );
 
         assertEquals("Blog post 1 not found.", exception.getMessage());
+    }
+
+    @Test
+    void listBlogPost() {
+        List<BlogPostEntity> blogPostEntityList = BlogPostMother.listOfBlogPostEntity(3);
+
+        when(repository.findAll()).thenReturn(blogPostEntityList);
+
+        GetAllBlogPostResponse response = service.listBlogPosts();
+
+        assertEquals(blogPostEntityList.size(), response.getBlogPostList().size());
     }
 }

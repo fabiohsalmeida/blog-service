@@ -25,7 +25,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             BlogPostNotFoundException ex) {
         Map<String, String> errors = new HashMap<>();
 
-        errors.put(ex.getMessage(), ex.getMessage());
+        errors.put(HttpStatus.NOT_FOUND.name(), ex.getMessage());
 
         return Error.builder()
                 .timestamp(LocalDateTime.now())
