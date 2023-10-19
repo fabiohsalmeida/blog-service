@@ -21,6 +21,22 @@ public class BlogPostMother {
                 .build();
     }
 
+    public static CreateBlogPostRequest invalidCreateBlogPostRequestWithEmptyContent() {
+        return CreateBlogPostRequest.builder()
+                .title("Sample title for create blog post 1")
+                .build();
+    }
+
+    public static CreateBlogPostRequest invalidCreateBlogPostRequestWithEmptyTitle() {
+        return CreateBlogPostRequest.builder()
+                .content("Sample content for create blog post 1")
+                .build();
+    }
+
+    public static CreateBlogPostRequest invalidCreateBlogPostRequestWithEmptyTitleAndContent() {
+        return CreateBlogPostRequest.builder().build();
+    }
+
     public static CreateBlogPostResponse defaultCreateBlogPostResponse() {
         return CreateBlogPostResponse.builder()
                 .id(1L)
