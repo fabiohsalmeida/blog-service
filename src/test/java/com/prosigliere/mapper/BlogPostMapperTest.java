@@ -46,6 +46,7 @@ public class BlogPostMapperTest {
         assertEquals(mockedEntity.getId(), mappedResponse.getId());
         assertEquals(mockedEntity.getTitle(), mappedResponse.getTitle());
         assertEquals(mockedEntity.getContent(), mappedResponse.getContent());
+        assertEquals(mockedEntity.getComments().size(), mappedResponse.getComments().size());
     }
 
     @Test

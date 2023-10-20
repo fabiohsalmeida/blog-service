@@ -26,10 +26,15 @@ public class BlogPostMapper {
     }
 
     public static GetBlogPostResponse mapEntityToGetBlogPostResponse(BlogPostEntity entity) {
+        List<String> comments = entity.getComments().stream()
+                .map(commentEntity -> commentEntity.getContent())
+                .collect(Collectors.toList());
+
         return GetBlogPostResponse.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
                 .content(entity.getContent())
+                .comments(comments)
                 .build();
     }
 
