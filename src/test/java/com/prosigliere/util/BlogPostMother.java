@@ -26,7 +26,7 @@ public class BlogPostMother {
         return entityList;
     }
 
-    private static BlogPostEntity parameterizableBlogPostEntity(Long id) {
+    public static BlogPostEntity parameterizableBlogPostEntity(Long id) {
         String title = String.format("Sample title for blog post %d", id);
         String content = String.format("Sample content for blog post %d", id);
 

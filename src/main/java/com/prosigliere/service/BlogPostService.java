@@ -34,7 +34,7 @@ public class BlogPostService {
         return mapEntityToGetBlogPostResponse(blogPost);
     }
 
-    private BlogPostEntity getValidBlogPost(Long id) {
+    public BlogPostEntity getValidBlogPost(Long id) {
         Optional<BlogPostEntity> blogPost = repository.findById(id);
 
         if (blogPost.isEmpty()) {
