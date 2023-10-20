@@ -5,6 +5,7 @@ import com.prosigliere.domain.dto.response.CreateBlogPostResponse;
 import com.prosigliere.domain.dto.response.GetAllBlogPostResponse;
 import com.prosigliere.domain.dto.response.GetBlogPostResponse;
 import com.prosigliere.domain.entity.BlogPostEntity;
+import com.prosigliere.domain.model.BlogPostItem;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,16 +34,16 @@ public class BlogPostMapper {
     }
 
     public static GetAllBlogPostResponse mapEntityListToGetAllBlogPostResponse(List<BlogPostEntity> blogPostList) {
-        List<GetBlogPostResponse> getBlogPostResponseList = blogPostList.stream()
-                .map(entity -> GetBlogPostResponse.builder()
+        List<BlogPostItem> blogPostItemList = blogPostList.stream()
+                .map(entity -> BlogPostItem.builder()
                         .id(entity.getId())
                         .title(entity.getTitle())
-                        .content(entity.getContent())
+                        .numberOfComments(entity.getComments().size())
                         .build()
                 ).collect(Collectors.toList());
 
         return GetAllBlogPostResponse.builder()
-                .blogPostList(getBlogPostResponseList)
+                .blogPostList(blogPostItemList)
                 .build();
     }
 }

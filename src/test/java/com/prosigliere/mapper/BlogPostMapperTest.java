@@ -5,6 +5,7 @@ import com.prosigliere.domain.dto.response.CreateBlogPostResponse;
 import com.prosigliere.domain.dto.response.GetAllBlogPostResponse;
 import com.prosigliere.domain.dto.response.GetBlogPostResponse;
 import com.prosigliere.domain.entity.BlogPostEntity;
+import com.prosigliere.domain.model.BlogPostItem;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -53,14 +54,14 @@ public class BlogPostMapperTest {
 
         GetAllBlogPostResponse response = BlogPostMapper.mapEntityListToGetAllBlogPostResponse(mockedEntityList);
 
-        List<GetBlogPostResponse> blogPostResponseList = response.getBlogPostList();
+        List<BlogPostItem> blogPostResponseList = response.getBlogPostList();
         assertEquals(mockedEntityList.size(), blogPostResponseList.size());
 
-        for (GetBlogPostResponse blogPostResponse : blogPostResponseList) {
+        for (BlogPostItem item : blogPostResponseList) {
             Optional<BlogPostEntity> foundEntity = mockedEntityList.stream().filter(
-                    entity -> entity.getId() == blogPostResponse.getId() &&
-                            entity.getTitle().equals(blogPostResponse.getTitle()) &&
-                            entity.getContent().equals(blogPostResponse.getContent())
+                    entity -> entity.getId() == item.getId() &&
+                            entity.getTitle().equals(item.getTitle()) &&
+                            entity.getComments().size() == item.getNumberOfComments()
             ).findFirst();
 
             assertTrue(foundEntity.isPresent());
